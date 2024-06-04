@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "task-block/simple-accordion",
+	"version": "0.1.0",
+	"title": "Simple Accordion",
+	"category": "media",
+	"icon": "editor-kitchensink",
+	"description": "An accordion block",
+	"example": {},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"itemsGap": {
+			"type": "number"
+		},
+		"frontendCss": {
+			"type": "string",
+			"default": ""
+		},
+		"uniqueId": {
+			"type": "string"
+		}
+	},
+	"textdomain": "simple-accordion",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}
