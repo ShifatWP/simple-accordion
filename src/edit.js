@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText, InnerBlocks, InspectorControls } from '@wordpress/block-editor';
-import { Button, TextControl, TabPanel, RangeControl } from '@wordpress/components';
+import { Button, TextControl, TabPanel, RangeControl, ColorPalette } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import './editor.scss';
 import dynamicCss from './dynamicCss';
@@ -9,7 +9,7 @@ import { PanelBody } from '@wordpress/components';
 
 const Edit = ({ clientId, attributes, setAttributes }) => {
 
-    const { uniqueId } = attributes;
+    const { uniqueId, titlleBgColor, itemsGap } = attributes;
 
     const [activeTab, setActiveTab] = useState('general');
 
@@ -20,8 +20,6 @@ const Edit = ({ clientId, attributes, setAttributes }) => {
     useEffect(()=> {
       setAttributes({frontendCss: JSON.stringify(dynamicCss(attributes))})
     },[attributes])
-
-    const { itemsGap } = attributes;
 
     return(
     <>
@@ -103,10 +101,18 @@ const Edit = ({ clientId, attributes, setAttributes }) => {
                   )}
                   {tab.name === 'styles' && (
                       <div className='simple-accordion-tabs-content'>
-
-                        
-
-                        <PanelBody/>
+                        <PanelBody title={__('Title', 'simple-accordion')}>
+                          <div>Title Background Color</div>
+                          <ColorPalette
+                            colors={ [
+                              { name: 'red', color: '#f00' },
+                              { name: 'white', color: '#fff' },
+                              { name: 'blue', color: '#00f' },
+                          ] }
+                            value={ titlleBgColor }
+                            onChange={ ( color ) => setAttributes( { titlleBgColor: color } ) }
+                          />
+                        </PanelBody>
                       </div>
                   )}
               </>

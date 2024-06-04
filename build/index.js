@@ -221,14 +221,15 @@ __webpack_require__.r(__webpack_exports__);
 function dynamicCss(attributes) {
   const {
     uniqueId,
-    itemsGap
+    itemsGap,
+    titlleBgColor
   } = attributes;
   let desktopCss = {
     [`.wp-block-task-block-simple-accordion .accordion__item`]: {
       'margin-bottom': itemsGap + 'px'
     },
     [`.wp-block-task-block-simple-accordion .accordion__item .accordion__title`]: {
-      'background-color': 'green'
+      'background-color': titlleBgColor
     }
   };
   desktopCss = (0,_controls__WEBPACK_IMPORTED_MODULE_0__.cssString)(desktopCss);
@@ -277,7 +278,9 @@ const Edit = ({
   setAttributes
 }) => {
   const {
-    uniqueId
+    uniqueId,
+    titlleBgColor,
+    itemsGap
   } = attributes;
   const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)('general');
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
@@ -290,9 +293,6 @@ const Edit = ({
       frontendCss: JSON.stringify((0,_dynamicCss__WEBPACK_IMPORTED_MODULE_6__["default"])(attributes))
     });
   }, [attributes]);
-  const {
-    itemsGap
-  } = attributes;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TabPanel, {
     className: "simple-accordion-tab-panel",
     activeClass: "simple-accordion-active-tab",
@@ -351,7 +351,24 @@ const Edit = ({
     max: 100
   })), tab.name === 'styles' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "simple-accordion-tabs-content"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, null))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Title', 'simple-accordion')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "Title Background Color"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPalette, {
+    colors: [{
+      name: 'red',
+      color: '#f00'
+    }, {
+      name: 'white',
+      color: '#fff'
+    }, {
+      name: 'blue',
+      color: '#00f'
+    }],
+    value: titlleBgColor,
+    onChange: color => setAttributes({
+      titlleBgColor: color
+    })
+  })))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("style", null, (0,_dynamicCss__WEBPACK_IMPORTED_MODULE_6__["default"])(attributes)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
     allowedBlocks: ['task-block/simple-accordion-item'],
@@ -519,7 +536,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"task-block/simple-accordion","version":"0.1.0","title":"Simple Accordion","category":"media","icon":"editor-kitchensink","description":"An accordion block","example":{},"supports":{"html":false,"align":["wide","full"]},"attributes":{"itemsGap":{"type":"number"},"frontendCss":{"type":"string","default":""},"uniqueId":{"type":"string"}},"textdomain":"simple-accordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"task-block/simple-accordion","version":"0.1.0","title":"Simple Accordion","category":"media","icon":"editor-kitchensink","description":"An accordion block","example":{},"supports":{"html":false,"align":["wide","full"]},"attributes":{"itemsGap":{"type":"number"},"frontendCss":{"type":"string","default":""},"uniqueId":{"type":"string"},"titlleBgColor":{"type":"string","default":"#e8e8e8"}},"textdomain":"simple-accordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 

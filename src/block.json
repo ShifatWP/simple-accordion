@@ -22,6 +22,10 @@
 		},
 		"uniqueId": {
 			"type": "string"
+		},
+		"titlleBgColor": {
+			"type": "string",
+			"default": "#e8e8e8"
 		}
 	},
 	"textdomain": "simple-accordion",
