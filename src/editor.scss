@@ -1,58 +1,57 @@
 .wp-block-task-block-simple-accordion{
     >.block-editor-inner-blocks
         >.block-editor-block-list__layout > [data-type= "task-block/simple-accordion-item"] {
-.accordion__item .accordion__title {
-	position: relative;
-	margin: 0;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 13px 60px 15px 13px;
-	color: #202020;
-	text-decoration: none;
-	border-radius: 3px;
-	-webkit-transition: background-color 0.2s;
-	transition: background-color 0.2s;
-    cursor: pointer;
-}
-.accordion__item .accordion__title .accordion__title-text{
-	margin: 0;
-}
-.accordion__item .accordion__title:hover {
-	background-color: #e5e4e4;
-	transition: all 0.5s ease-out;
-}
-.accordion__item .accordion-active {
-	background-color: #e5e4e4;
-}
-.accordion__item .accordion__title .accordion__arrow {
-	position: absolute;
-	right: 10px;
-	display: inline-block;
-	vertical-align: middle;
-	width: 30px;
-	height: 30px;
-	text-align: center;
-	color: #fff;
-	line-height: 30px;
-	font-size: 20px;
-	font-weight: 700;
-	margin-right: 5px;
-	background-color: #c9c9c9;
-	border-radius: 50%;
-	-webkit-transition: all 0.2s ease-out;
-	transition: all 0.2s ease-out;
-}
+            .accordion__item .accordion__title {
+                position: relative;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                padding: 13px 13px 15px 13px;
+                text-decoration: none;
+                border-radius: 3px;
+                transition: background-color 0.2s;
+                cursor: pointer;
+            }
+            
+            .accordion__item .accordion__title .accordion__title-text {
+                margin: 0;
+                flex-grow: 1;
+            }
+            
+            .accordion__item .accordion__title:hover {
+                transition: all 0.8s ease-out;
+            }
+            
+            /* .accordion__item .accordion-active {
+                background-color: #e5e4e4;
+            } */
+            
+            .accordion__item .accordion__title .accordion__arrow {
+                display: inline-block;
+                vertical-align: middle;
+                width: 30px;
+                height: 30px;
+                text-align: center;
+                line-height: 30px;
+                font-size: 20px;
+                font-weight: 700;
+                margin-right: 5px;
+                border-radius: 50%;
+                transition: all 0.2s ease-out;
+            }
+            
+            
 .accordion__item .accordion__rotate {
 	transform: rotate(225deg);
 }
 .accordion__item .accordion__content {
-	padding: 30px;
+	padding: 10px;
 	margin-bottom: 2px;
 	font-size: 14px;
 	display: none;
-	background-color: #f3f3f3;
+    transition: background-color 0.8s ease-out;
 }
+
 .accordion__item .accordion__arrow-item {
 	font-weight: 700;
 }
@@ -65,7 +64,7 @@
 		.components-button{
 			background-color: #e8e8e8;
 			color: #000000;
-			border-bottom: 2px solid rgb(60, 0, 189);
+			border-bottom: 2px solid rgb(25, 0, 79);
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -77,13 +76,53 @@
 				gap: 5px;
 			}
 			&.simple-accordion-active-tab{
-				background-color: rgb(60, 0, 189);
+				background-color: rgb(25, 0, 79);
 				color: white;
 			}
 		}
 	}
-	.simple-accordion-tabs-content{
-		padding: 10px;
-		
-	}
+    .simple-accordion-tabs-content{
+        padding: 20px;
+    }
+    .components-panel__body .components-button:focus {
+    outline: none;
+    box-shadow: none;
+    }
+    .simple-accordion-button-group{
+        background-color: #f3f3f3;
+        padding: 10px;
+        display: flex;
+        border: 1px solid grey;
+        padding: 0;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        >.simple-accordion-sidebar-button{
+            &.active-button{
+                background-color: rgb(25, 0, 79);
+                color: #fff;
+                outline: none;
+            }
+            color: rgb(25, 0, 79);
+            font-weight: 500;
+            text-align: center;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0px;
+            outline: none;
+        }
+        .components-button:focus{
+            outline: none;
+            box-shadow: none;
+        }
+    }
+
+    .simple-accordion-sidebar-label-text{
+        font-size: 13px;
+        color: #444444;
+        font-weight: 500;
+        margin: 5px auto;
+    }
+
 }

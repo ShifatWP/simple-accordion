@@ -5,7 +5,7 @@ const Save = ({attributes}) => {
 	const css = frontendCss?.substring(1, frontendCss.length - 1);
     return (
         
-        <div {...useBlockProps.save()}>
+        <div {...useBlockProps.save({ className: `wp-block-task-block-simple-accordion-${uniqueId}` })}>
             <style>{css}</style>
             <InnerBlocks.Content/>
         </div>

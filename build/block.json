@@ -17,7 +17,8 @@
   },
   "attributes": {
     "itemsGap": {
-      "type": "number"
+      "type": "number",
+      "default": 10
     },
     "frontendCss": {
       "type": "string",
@@ -26,9 +27,61 @@
     "uniqueId": {
       "type": "string"
     },
+    "titleBgType": {
+      "type": "string",
+      "default": "default"
+    },
+    "titleBgHover": {
+      "type": "string",
+      "default": "#c4c4c4"
+    },
     "titlleBgColor": {
       "type": "string",
-      "default": "#e8e8e8"
+      "default": "#C4C4C4"
+    },
+    "titleTextType": {
+      "type": "string",
+      "default": "default"
+    },
+    "titleTextHover": {
+      "type": "string",
+      "default": ""
+    },
+    "titlleTextColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "contentBgType": {
+      "type": "string",
+      "default": "default"
+    },
+    "contentBgColor": {
+      "type": "string",
+      "default": "#f3f3f3"
+    },
+    "contentHoverBgColor": {
+      "type": "string",
+      "default": ""
+    },
+    "titleTextAlingment": {
+      "type": "string",
+      "default": "left"
+    },
+    "iconPosition": {
+      "type": "string",
+      "default": "1"
+    },
+    "iconColorType": {
+      "type": "string",
+      "default": "default"
+    },
+    "iconColor": {
+      "type": "string",
+      "default": "#fff"
+    },
+    "iconHoverColor": {
+      "type": "string",
+      "default": ""
     }
   },
   "textdomain": "simple-accordion",
