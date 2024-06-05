@@ -17,8 +17,6 @@ const Edit = ({ clientId, attributes, setAttributes }) => {
       setAttributes({uniqueId: clientId})
     },[clientId])
 
-    console.log(uniqueId);
-
     useEffect(()=> {
       setAttributes({frontendCss: JSON.stringify(dynamicCss(attributes))})
     },[attributes]);
