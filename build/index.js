@@ -320,7 +320,6 @@ const Edit = ({
       uniqueId: clientId
     });
   }, [clientId]);
-  console.log(uniqueId);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
     setAttributes({
       frontendCss: JSON.stringify((0,_dynamicCss__WEBPACK_IMPORTED_MODULE_6__["default"])(attributes))
