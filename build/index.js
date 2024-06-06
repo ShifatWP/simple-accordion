@@ -34,45 +34,31 @@ const Edit = ({
   const {
     title
   } = attributes;
-  return (
-    // <div { ...useBlockProps()} >
-    //     <div className='accordion__title'>
-    //         <RichText
-    // 	        className='accordion__title-text'
-    // 	        tagName='h3'
-    //             value={title}
-    //             onChange={(value) => setAttributes({ title: value })}
-    //         />
-    //         <div class="accordion__arrow"><span class="accordion__arrow-item ">+</span></div>
-    //         <div className='accordion__content'>content</div>
-    //     </div>
-    // </div>
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      class: "accordion__item"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      class: "accordion__title"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      class: "accordion__arrow"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      class: "accordion__arrow-item "
-    }, "+")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
-      className: "accordion__title-text",
-      placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Title', 'simple-accordion'),
-      tagName: "h4",
-      value: title,
-      onChange: value => setAttributes({
-        title: value
-      })
-    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      class: "accordion__content"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
-      template: [["core/paragraph", {
-        placeholder: "Write accordion content here or add block."
-      }]]
-    }))))
-  );
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    class: "accordion__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    class: "accordion__title"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    class: "accordion__arrow"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    class: "accordion__arrow-item "
+  }, "+")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+    className: "accordion__title-text",
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Title', 'simple-accordion'),
+    tagName: "h4",
+    value: title,
+    onChange: value => setAttributes({
+      title: value
+    })
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    class: "accordion__content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
+    template: [["core/paragraph", {
+      placeholder: "Write accordion content here or add block."
+    }]]
+  }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Edit);
 
