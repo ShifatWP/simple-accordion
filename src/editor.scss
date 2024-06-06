@@ -1,3 +1,5 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
 .wp-block-task-block-simple-accordion{
     >.block-editor-inner-blocks
         >.block-editor-block-list__layout > [data-type= "task-block/simple-accordion-item"] {
@@ -6,7 +8,6 @@
                 margin: 0;
                 display: flex;
                 align-items: center;
-                padding: 13px 13px 15px 13px;
                 text-decoration: none;
                 border-radius: 3px;
                 transition: background-color 0.2s;
@@ -41,10 +42,9 @@
             }
             
 .accordion__item .accordion__rotate {
-	transform: rotate(225deg);
+	transform: rotate(180deg);
 }
 .accordion__item .accordion__content {
-	padding: 10px;
 	margin-bottom: 2px;
 	font-size: 14px;
 	display: none;

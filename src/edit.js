@@ -1,15 +1,14 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText, InnerBlocks, InspectorControls } from '@wordpress/block-editor';
-import { Button, TextControl, TabPanel, RangeControl, ColorPalette, SelectControl } from '@wordpress/components';
+import { Button, TextControl, TabPanel, RangeControl, ColorPalette, SelectControl, PanelBody, __experimentalBoxControl as BoxControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import './editor.scss';
 import dynamicCss from './dynamicCss';
 import { useEffect } from '@wordpress/element';
-import { PanelBody, ButtonGroup } from '@wordpress/components';
 
 const Edit = ({ clientId, attributes, setAttributes }) => {
 
-    const { uniqueId, titleBgType, titlleBgColor, titleBgHover, itemsGap, contentBgColor, titleTextType, titlleTextColor, titleTextHover, contentBgType, contentHoverBgColor, titleTextAlingment, iconPosition, iconColorType, iconColor, iconHoverColor } = attributes;
+    const { uniqueId, titleBgType, titlleBgColor, titleBgHover, itemsGap, contentBgColor, titleTextType, titlleTextColor, titleTextHover, contentBgType, contentHoverBgColor, titleTextAlingment, iconPosition, iconColorType, iconColor, iconHoverColor, titlePadding, contentPadding, icon } = attributes;
 
     const [activeTab, setActiveTab] = useState('general');
 
@@ -20,6 +19,20 @@ const Edit = ({ clientId, attributes, setAttributes }) => {
     useEffect(()=> {
       setAttributes({frontendCss: JSON.stringify(dynamicCss(attributes))})
     },[attributes]);
+
+    const accordionIcons = [
+      { label: 'Chevron Down', value: 'fas fa-chevron-down' },
+      { label: 'Arrow Down', value: 'fas fa-arrow-down' },
+      { label: 'Angle Down', value: 'fas fa-angle-down' },
+      { label: 'Caret Down', value: 'fas fa-caret-down' },
+      { label: 'Arrow Circle Down', value: 'fas fa-arrow-circle-down' },
+      { label: 'Angle Double Down', value: 'fas fa-angle-double-down' },
+      { label: 'Long Arrow Alt Down', value: 'fas fa-long-arrow-alt-down' },
+      { label: 'Sort Down', value: 'fas fa-sort-down' },
+      { label: 'Level Down', value: 'fas fa-level-down-alt' },
+      { label: 'Caret Square Down', value: 'fas fa-caret-square-down' },
+      { label: 'Hand Pointing Down', value: 'fas fa-hand-point-down' },
+  ];
 
     return(
     <>
@@ -112,6 +125,26 @@ const Edit = ({ clientId, attributes, setAttributes }) => {
                             <Button className={`simple-accordion-sidebar-button ${iconPosition == "1" ? 'active-button' : ''}`} onClick={()=> setAttributes({iconPosition: "1"})}>After Title</Button>
                             <Button className={`simple-accordion-sidebar-button ${iconPosition == "-1" ? 'active-button' : ''}`} onClick={()=> setAttributes({iconPosition: "-1"})}>Before Title</Button>
                          </div>
+
+                         <SelectControl
+                            label={__('Choose an icon', 'simple-accordion')}
+                            value={icon}
+                            options={accordionIcons}
+                            onChange={(newIcon)=> setAttributes({ icon: newIcon })}
+                         />
+
+                      {/* <select
+                        value={icon}
+                        onChange={(e)=> setAttributes({ icon: e.target.value }) }
+                        style={{ width: '100%' }}
+                      >
+                        {accordionIcons.map((item) => (
+                            <option key={item.value} value={item.value}>
+                              <i className={item.value}></i>
+                            </option>
+                        ))}
+                      </select> */}
+
                       </div>
                   )}
                   {tab.name === 'styles' && (
@@ -184,6 +217,17 @@ const Edit = ({ clientId, attributes, setAttributes }) => {
                           </>
                          )
                          }
+                         <BoxControl 
+                            label={__('Padding', 'simple-accordion')}
+                            values={ titlePadding }
+                            onChange={(values)=> setAttributes({titlePadding: values})}
+                            resetValues={{
+                              "top": "13px",
+                              "left": "13px",
+                              "right": "13px",
+                              "bottom": "13px"
+                              }}
+                         />
                         </PanelBody>
 
                         <PanelBody title={__('Icon', 'simple-accordion')} initialOpen={false}>
@@ -256,6 +300,17 @@ const Edit = ({ clientId, attributes, setAttributes }) => {
                           </>
                          )
                          }
+                         <BoxControl 
+                            label={__('Padding', 'simple-accordion')}
+                            values={ contentPadding }
+                            onChange={(values)=> setAttributes({contentPadding: values})}
+                            resetValues={{
+                              "top": "10px",
+                              "left": "10px",
+                              "right": "10px",
+                              "bottom": "10px"
+                              }}
+                         />
                         </PanelBody>
                       </>
                   )}

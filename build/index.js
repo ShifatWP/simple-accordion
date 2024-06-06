@@ -27,13 +27,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const Edit = ({
   attributes,
-  setAttributes
+  setAttributes,
+  context
 }) => {
   const {
-    title
+    title,
+    icon
   } = attributes;
+  const iconFromContext = context['simple-accordion/icon'];
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    setAttributes({
+      icon: iconFromContext
+    });
+  }, [iconFromContext]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -42,9 +51,9 @@ const Edit = ({
     class: "accordion__title"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     class: "accordion__arrow"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    class: "accordion__arrow-item "
-  }, "+")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+    class: `accordion__arrow-item ${iconFromContext}`
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     className: "accordion__title-text",
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Title', 'simple-accordion'),
     tagName: "h4",
@@ -83,18 +92,23 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)('task-block/simple-accordion-item', {
   title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Accordion Item', 'simple-accordion'),
-  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('An Accordion Card Item', 'simple-accordion'),
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('An Accordion Item', 'simple-accordion'),
   parent: ['task-block/simple-accordion'],
   icon: 'menu',
   supports: {
     reusable: false,
     html: false
   },
+  usesContext: ['simple-accordion/icon'],
   attributes: {
     title: {
       type: 'string',
       source: "html",
       selector: 'h4'
+    },
+    icon: {
+      type: 'string',
+      default: 'fas fa-chevron-down'
     }
   },
   /**
@@ -129,8 +143,10 @@ const Save = ({
   attributes
 }) => {
   const {
-    title
+    title,
+    icon
   } = attributes;
+  console.log(icon);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -139,9 +155,9 @@ const Save = ({
     class: "accordion__title"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     class: "accordion__arrow"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    class: "accordion__arrow-item "
-  }, "+")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+    class: `accordion__arrow-item ${icon}`
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
     className: "accordion__title-text",
     tagName: "h4",
     value: title || 'No Title'
@@ -204,14 +220,17 @@ function dynamicCss(attributes) {
     titleTextAlingment,
     iconPosition,
     iconColor,
-    iconHoverColor
+    iconHoverColor,
+    titlePadding,
+    contentPadding
   } = attributes;
   let desktopCss = {
     [`.wp-block-task-block-simple-accordion-${uniqueId} .accordion__item`]: {
       'margin-bottom': itemsGap + 'px'
     },
     [`.wp-block-task-block-simple-accordion-${uniqueId} .accordion__item .accordion__title`]: {
-      'background-color': titlleBgColor
+      'background-color': titlleBgColor,
+      'padding': `${titlePadding.top} ${titlePadding.right} ${titlePadding.bottom} ${titlePadding.left}`
     },
     [`.wp-block-task-block-simple-accordion-${uniqueId} .accordion__item .accordion__title:hover`]: {
       'background-color': titleBgHover
@@ -224,7 +243,8 @@ function dynamicCss(attributes) {
       'color': titleTextHover
     },
     [`.wp-block-task-block-simple-accordion-${uniqueId} .accordion__item .accordion__content`]: {
-      'background-color': contentBgColor
+      'background-color': contentBgColor,
+      'padding': `${contentPadding.top} ${contentPadding.right} ${contentPadding.bottom} ${contentPadding.left}`
     },
     [`.wp-block-task-block-simple-accordion-${uniqueId} .accordion__item .accordion__content:hover`]: {
       'background-color': contentHoverBgColor
@@ -276,7 +296,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const Edit = ({
   clientId,
   attributes,
@@ -298,7 +317,10 @@ const Edit = ({
     iconPosition,
     iconColorType,
     iconColor,
-    iconHoverColor
+    iconHoverColor,
+    titlePadding,
+    contentPadding,
+    icon
   } = attributes;
   const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)('general');
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
@@ -311,6 +333,40 @@ const Edit = ({
       frontendCss: JSON.stringify((0,_dynamicCss__WEBPACK_IMPORTED_MODULE_6__["default"])(attributes))
     });
   }, [attributes]);
+  const accordionIcons = [{
+    label: 'Chevron Down',
+    value: 'fas fa-chevron-down'
+  }, {
+    label: 'Arrow Down',
+    value: 'fas fa-arrow-down'
+  }, {
+    label: 'Angle Down',
+    value: 'fas fa-angle-down'
+  }, {
+    label: 'Caret Down',
+    value: 'fas fa-caret-down'
+  }, {
+    label: 'Arrow Circle Down',
+    value: 'fas fa-arrow-circle-down'
+  }, {
+    label: 'Angle Double Down',
+    value: 'fas fa-angle-double-down'
+  }, {
+    label: 'Long Arrow Alt Down',
+    value: 'fas fa-long-arrow-alt-down'
+  }, {
+    label: 'Sort Down',
+    value: 'fas fa-sort-down'
+  }, {
+    label: 'Level Down',
+    value: 'fas fa-level-down-alt'
+  }, {
+    label: 'Caret Square Down',
+    value: 'fas fa-caret-square-down'
+  }, {
+    label: 'Hand Pointing Down',
+    value: 'fas fa-hand-point-down'
+  }];
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TabPanel, {
     className: "simple-accordion-tab-panel",
     activeClass: "simple-accordion-active-tab",
@@ -397,7 +453,14 @@ const Edit = ({
     onClick: () => setAttributes({
       iconPosition: "-1"
     })
-  }, "Before Title"))), tab.name === 'styles' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+  }, "Before Title")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose an icon', 'simple-accordion'),
+    value: icon,
+    options: accordionIcons,
+    onChange: newIcon => setAttributes({
+      icon: newIcon
+    })
+  })), tab.name === 'styles' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Title', 'simple-accordion'),
     initialOpen: false
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -488,7 +551,19 @@ const Edit = ({
     onChange: color => setAttributes({
       titleTextHover: color
     })
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalBoxControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Padding', 'simple-accordion'),
+    values: titlePadding,
+    onChange: values => setAttributes({
+      titlePadding: values
+    }),
+    resetValues: {
+      "top": "13px",
+      "left": "13px",
+      "right": "13px",
+      "bottom": "13px"
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Icon', 'simple-accordion'),
     initialOpen: false
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -582,7 +657,19 @@ const Edit = ({
     onChange: color => setAttributes({
       contentHoverBgColor: color
     })
-  }))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalBoxControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Padding', 'simple-accordion'),
+    values: contentPadding,
+    onChange: values => setAttributes({
+      contentPadding: values
+    }),
+    resetValues: {
+      "top": "10px",
+      "left": "10px",
+      "right": "10px",
+      "bottom": "10px"
+    }
+  })))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
       className: `wp-block-task-block-simple-accordion-${uniqueId}`
     })
@@ -754,7 +841,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"task-block/simple-accordion","version":"0.1.0","title":"Simple Accordion","category":"media","icon":"editor-kitchensink","description":"An accordion block","example":{},"supports":{"html":false,"align":["wide","full"]},"attributes":{"itemsGap":{"type":"number","default":10},"frontendCss":{"type":"string","default":""},"uniqueId":{"type":"string"},"titleBgType":{"type":"string","default":"default"},"titleBgHover":{"type":"string","default":"#c4c4c4"},"titlleBgColor":{"type":"string","default":"#C4C4C4"},"titleTextType":{"type":"string","default":"default"},"titleTextHover":{"type":"string","default":""},"titlleTextColor":{"type":"string","default":"#000000"},"contentBgType":{"type":"string","default":"default"},"contentBgColor":{"type":"string","default":"#f3f3f3"},"contentHoverBgColor":{"type":"string","default":""},"titleTextAlingment":{"type":"string","default":"left"},"iconPosition":{"type":"string","default":"1"},"iconColorType":{"type":"string","default":"default"},"iconColor":{"type":"string","default":"#fff"},"iconHoverColor":{"type":"string","default":""}},"textdomain":"simple-accordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"task-block/simple-accordion","version":"0.1.0","title":"Simple Accordion","category":"media","icon":"editor-kitchensink","description":"An accordion block","example":{},"supports":{"html":false,"align":["wide","full"]},"attributes":{"itemsGap":{"type":"number","default":10},"frontendCss":{"type":"string","default":""},"uniqueId":{"type":"string"},"titleBgType":{"type":"string","default":"default"},"titleBgHover":{"type":"string","default":"#c4c4c4"},"titlleBgColor":{"type":"string","default":"#C4C4C4"},"titleTextType":{"type":"string","default":"default"},"titleTextHover":{"type":"string","default":""},"titlleTextColor":{"type":"string","default":"#000000"},"contentBgType":{"type":"string","default":"default"},"contentBgColor":{"type":"string","default":"#f3f3f3"},"contentHoverBgColor":{"type":"string","default":""},"titleTextAlingment":{"type":"string","default":"left"},"iconPosition":{"type":"string","default":"1"},"iconColorType":{"type":"string","default":"default"},"iconColor":{"type":"string","default":"#fff"},"iconHoverColor":{"type":"string","default":""},"titlePadding":{"type":"object","default":{"top":"13px","left":"13px","right":"13px","bottom":"13px"}},"contentPadding":{"type":"object","default":{"top":"10px","left":"10px","right":"10px","bottom":"10px"}},"icon":{"type":"string","default":"fas fa-chevron-down"},"iconSize":{"type":"string"}},"providesContext":{"simple-accordion/icon":"icon"},"textdomain":"simple-accordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 

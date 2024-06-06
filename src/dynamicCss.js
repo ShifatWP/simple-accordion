@@ -1,14 +1,15 @@
 import { cssString } from "./controls";
 
 function dynamicCss(attributes) {
-    const { uniqueId, itemsGap, titlleBgColor, contentBgColor, contentHoverBgColor, titleBgHover, titlleTextColor, titleTextHover, titleTextAlingment, iconPosition, iconColor, iconHoverColor } = attributes;
+    const { uniqueId, itemsGap, titlleBgColor, contentBgColor, contentHoverBgColor, titleBgHover, titlleTextColor, titleTextHover, titleTextAlingment, iconPosition, iconColor, iconHoverColor, titlePadding, contentPadding } = attributes;
 
     let desktopCss = {
         [`.wp-block-task-block-simple-accordion-${uniqueId} .accordion__item`]: {
             'margin-bottom': itemsGap + 'px',
         },
         [`.wp-block-task-block-simple-accordion-${uniqueId} .accordion__item .accordion__title`]: {
-            'background-color': titlleBgColor
+            'background-color': titlleBgColor,
+            'padding': `${titlePadding.top} ${titlePadding.right} ${titlePadding.bottom} ${titlePadding.left}`
         },
         [`.wp-block-task-block-simple-accordion-${uniqueId} .accordion__item .accordion__title:hover`]: {
             'background-color': titleBgHover
@@ -21,7 +22,8 @@ function dynamicCss(attributes) {
             'color': titleTextHover,
         },
         [`.wp-block-task-block-simple-accordion-${uniqueId} .accordion__item .accordion__content`]: {
-            'background-color': contentBgColor
+            'background-color': contentBgColor,
+            'padding': `${contentPadding.top} ${contentPadding.right} ${contentPadding.bottom} ${contentPadding.left}`
         },
         [`.wp-block-task-block-simple-accordion-${uniqueId} .accordion__item .accordion__content:hover`]: {
             'background-color': contentHoverBgColor
