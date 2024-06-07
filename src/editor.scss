@@ -94,7 +94,7 @@
         border: 1px solid grey;
         padding: 0;
         justify-content: space-between;
-        margin-bottom: 5px;
+        margin-bottom: 20px;
         >.simple-accordion-sidebar-button{
             &.active-button{
                 background-color: rgb(25, 0, 79);
@@ -122,6 +122,11 @@
         color: #444444;
         font-weight: 500;
         margin: 5px auto;
+    }
+
+    .block-editor-panel-color-gradient-settings{
+        padding: 0px;
+        margin-bottom: 40px;
     }
 
 }

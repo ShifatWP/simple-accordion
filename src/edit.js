@@ -5,10 +5,11 @@ import { useState } from '@wordpress/element';
 import './editor.scss';
 import dynamicCss from './dynamicCss';
 import { useEffect } from '@wordpress/element';
+import { PanelColorSettings } from '@wordpress/block-editor';
 
 const Edit = ({ clientId, attributes, setAttributes }) => {
 
-    const { uniqueId, titleBgType, titlleBgColor, titleBgHover, itemsGap, contentBgColor, titleTextType, titlleTextColor, titleTextHover, contentBgType, contentHoverBgColor, titleTextAlingment, iconPosition, iconColorType, iconColor, iconHoverColor, titlePadding, contentPadding, icon } = attributes;
+    const { uniqueId, titleBgType, titlleBgColor, titleBgHover, itemsGap, contentBgColor, titlleTextColor, titleTextHover, contentBgType, contentHoverBgColor, titleTextAlingment, iconPosition, iconColorType, iconColor, iconHoverColor, titlePadding, contentPadding, icon } = attributes;
 
     const [activeTab, setActiveTab] = useState('general');
 
@@ -110,16 +111,14 @@ const Edit = ({ clientId, attributes, setAttributes }) => {
                           min={ 5 }
                           max={ 100 }
                         />
-                        <SelectControl
-                          label={__('Title Text Align')}
-                          value={ titleTextAlingment }
-                          options={ [
-                            { label: 'Left', value: 'left' },
-                            { label: 'Center', value: 'center' },
-                            { label: 'Right', value: 'right' },
-                          ] }
-                          onChange={ ( newvalue ) => setAttributes( { titleTextAlingment: newvalue } ) }
-                        />
+
+                        <div className='simple-accordion-sidebar-label-text'>Title Text Align</div>
+                        <div className='simple-accordion-button-group'>
+                            <Button className={`simple-accordion-sidebar-button ${titleTextAlingment == "left" ? 'active-button' : ''}`} onClick={()=> setAttributes({titleTextAlingment: "left"})}><i className='fas fa-align-left'></i></Button>
+                            <Button className={`simple-accordion-sidebar-button ${titleTextAlingment == "center" ? 'active-button' : ''}`} onClick={()=> setAttributes({titleTextAlingment: "center"})}><i className='fas fa-align-center'></i></Button>
+                            <Button className={`simple-accordion-sidebar-button ${titleTextAlingment == "right" ? 'active-button' : ''}`} onClick={()=> setAttributes({titleTextAlingment: "right"})}><i className='fas fa-align-right'></i></Button>
+                         </div>
+
                         <div className='simple-accordion-sidebar-label-text'>Icon Position</div>
                         <div className='simple-accordion-button-group'>
                             <Button className={`simple-accordion-sidebar-button ${iconPosition == "1" ? 'active-button' : ''}`} onClick={()=> setAttributes({iconPosition: "1"})}>After Title</Button>
@@ -132,92 +131,65 @@ const Edit = ({ clientId, attributes, setAttributes }) => {
                             options={accordionIcons}
                             onChange={(newIcon)=> setAttributes({ icon: newIcon })}
                          />
-
-                      {/* <select
-                        value={icon}
-                        onChange={(e)=> setAttributes({ icon: e.target.value }) }
-                        style={{ width: '100%' }}
-                      >
-                        {accordionIcons.map((item) => (
-                            <option key={item.value} value={item.value}>
-                              <i className={item.value}></i>
-                            </option>
-                        ))}
-                      </select> */}
-
                       </div>
                   )}
                   {tab.name === 'styles' && (
                       <>
                         <PanelBody title={__('Title', 'simple-accordion')} initialOpen={false}>
-                          <div className='simple-accordion-sidebar-label-text'>Background</div>
-                          <div className='simple-accordion-button-group'>
-                            <Button className={`simple-accordion-sidebar-button ${titleBgType === 'default' ? 'active-button' : ''}`} onClick={()=> setAttributes({titleBgType: "default"})}>Default</Button>
-                            <Button className={`simple-accordion-sidebar-button ${titleBgType === 'hover' ? 'active-button' : ''}`} onClick={()=> setAttributes({titleBgType: "hover"})}>Hover</Button>
-                         </div>
-                         {titleBgType == "default" && (
+
+                            <div className='simple-accordion-sidebar-label-text'>Color Settings</div>
+                            <div className='simple-accordion-button-group'>
+                              <Button className={`simple-accordion-sidebar-button ${titleBgType === 'default' ? 'active-button' : ''}`} onClick={()=> setAttributes({titleBgType: "default"})}>Default</Button>
+                              <Button className={`simple-accordion-sidebar-button ${titleBgType === 'hover' ? 'active-button' : ''}`} onClick={()=> setAttributes({titleBgType: "hover"})}>Hover</Button>
+                            </div>
+                            {titleBgType == "default" && (
+                            <>
+                            <PanelColorSettings
+                                disableCustomColors={false}
+                                colorSettings={[
+                                    {
+                                        label: __('Background', 'simple-accordion'),
+                                        value: titlleBgColor,
+                                        onChange: (value) => {
+                                            setAttributes({titlleBgColor: value})
+                                        }
+                                    },
+                                    {
+                                      label: __('Text', 'simple-accordion'),
+                                      value: titlleTextColor,
+                                      onChange: (value) => {
+                                          setAttributes({titlleTextColor: value})
+                                      }
+                                  }
+                                ]}
+                            />
+                            </>
+                            )}
+                            {titleBgType == "hover" && (
                           <>
-                          <ColorPalette
-                            colors={ [
-                              { name: 'red', color: '#f00' },
-                              { name: 'white', color: '#fff' },
-                              { name: 'blue', color: '#00f' },
-                          ] }
-                            value={ titlleBgColor }
-                            onChange={ ( color ) => setAttributes( { titlleBgColor: color } ) }
-                          />
+                          <PanelColorSettings
+                                disableCustomColors={false}
+                                colorSettings={[
+                                    {
+                                        label: __('Background', 'simple-accordion'),
+                                        value: titleBgHover,
+                                        onChange: (value) => {
+                                            setAttributes({titleBgHover: value})
+                                        }
+                                    },
+                                    {
+                                      label: __('Text', 'simple-accordion'),
+                                      value: titleTextHover,
+                                      onChange: (value) => {
+                                          setAttributes({titleTextHover: value})
+                                      }
+                                  }
+                                ]}
+                            />
                           </>
-                         )
-                         }
-                         {titleBgType == "hover" && (
-                          <>
-                          <ColorPalette
-                            colors={ [
-                              { name: 'red', color: '#f00' },
-                              { name: 'white', color: '#fff' },
-                              { name: 'blue', color: '#00f' },
-                          ] }
-                            value={ titleBgHover }
-                            onChange={ ( color ) => setAttributes( { titleBgHover: color } ) }
-                          />
-                          </>
-                         )
-                         }
-                         
-                         <div className='simple-accordion-sidebar-label-text'>Text</div>
-                          <div className='simple-accordion-button-group'>
-                            <Button className={`simple-accordion-sidebar-button ${titleTextType === 'default' ? 'active-button' : ''}`} onClick={()=> setAttributes({titleTextType: "default"})}>Default</Button>
-                            <Button className={`simple-accordion-sidebar-button ${titleTextType === 'hover' ? 'active-button' : ''}`} onClick={()=> setAttributes({titleTextType: "hover"})}>Hover</Button>
-                         </div>
-                         {titleTextType == "default" && (
-                          <>
-                          <ColorPalette
-                            colors={ [
-                              { name: 'red', color: '#f00' },
-                              { name: 'white', color: '#fff' },
-                              { name: 'blue', color: '#00f' },
-                          ] }
-                            value={ titlleTextColor }
-                            onChange={ ( color ) => setAttributes( { titlleTextColor: color } ) }
-                          />
-                          </>
-                         )
-                         }
-                         {titleTextType == "hover" && (
-                          <>
-                          <ColorPalette
-                            colors={ [
-                              { name: 'red', color: '#f00' },
-                              { name: 'white', color: '#fff' },
-                              { name: 'blue', color: '#00f' },
-                          ] }
-                            value={ titleTextHover }
-                            onChange={ ( color ) => setAttributes( { titleTextHover: color } ) }
-                          />
-                          </>
-                         )
-                         }
-                         <BoxControl 
+                            )}
+
+                          <BoxControl 
                             label={__('Padding', 'simple-accordion')}
                             values={ titlePadding }
                             onChange={(values)=> setAttributes({titlePadding: values})}
@@ -227,7 +199,8 @@ const Edit = ({ clientId, attributes, setAttributes }) => {
                               "right": "13px",
                               "bottom": "13px"
                               }}
-                         />
+                          />
+
                         </PanelBody>
 
                         <PanelBody title={__('Icon', 'simple-accordion')} initialOpen={false}>
@@ -238,28 +211,34 @@ const Edit = ({ clientId, attributes, setAttributes }) => {
                          </div>
                          {iconColorType == "default" && (
                           <>
-                          <ColorPalette
-                            colors={ [
-                              { name: 'red', color: '#f00' },
-                              { name: 'white', color: '#fff' },
-                              { name: 'blue', color: '#00f' },
-                          ] }
-                            value={ iconColor }
-                            onChange={ ( color ) => setAttributes( { iconColor: color } ) }
+                          <PanelColorSettings
+                              disableCustomColors={false}
+                              colorSettings={[
+                                  {
+                                      label: __('Color', 'simple-accordion'),
+                                      value: iconColor,
+                                      onChange: (value) => {
+                                          setAttributes({iconColor: value})
+                                      }
+                                  }
+                              ]}
                           />
                           </>
                          )
                          }
                          {iconColorType == "hover" && (
                           <>
-                          <ColorPalette
-                            colors={ [
-                              { name: 'red', color: '#f00' },
-                              { name: 'white', color: '#fff' },
-                              { name: 'blue', color: '#00f' },
-                          ] }
-                            value={ iconHoverColor }
-                            onChange={ ( color ) => setAttributes( { iconHoverColor: color } ) }
+                          <PanelColorSettings
+                              disableCustomColors={false}
+                              colorSettings={[
+                                  {
+                                      label: __('Hover Color', 'simple-accordion'),
+                                      value: iconHoverColor,
+                                      onChange: (value) => {
+                                          setAttributes({iconHoverColor: value})
+                                      }
+                                  }
+                              ]}
                           />
                           </>
                          )

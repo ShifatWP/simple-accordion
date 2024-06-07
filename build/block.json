@@ -39,10 +39,6 @@
       "type": "string",
       "default": "#C4C4C4"
     },
-    "titleTextType": {
-      "type": "string",
-      "default": "default"
-    },
     "titleTextHover": {
       "type": "string",
       "default": ""

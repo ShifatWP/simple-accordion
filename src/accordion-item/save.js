@@ -2,7 +2,7 @@ import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
 
 const Save = ({ attributes }) => {
     const { title, icon } = attributes;
-   console.log(icon);
+	
     return (
         <div {...useBlockProps.save()}>
 
